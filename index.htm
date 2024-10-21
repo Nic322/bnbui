@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #FF5A5F;
+            margin-right: auto;
+        }
+
+        .navbar-links {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .navbar a {
+            display: block;
+            color: #484848;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .search-section {
+            flex: 1;
+            padding: 10px;
+            border-right: 1px solid #ddd;
+        }
+
+        .search-section:last-child {
+            border-right: none;
+        }
+
+        .search-section input {
+            width: 100%;
+            border: none;
+            outline: none;
+        }
+
+        .search-button {
+            background-color: #FF5A5F;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust min width as needed */
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .listing {
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .image-container img {
+            max-width: 100%;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .details {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home" class="logo">Airbnb</a>
+        <div class="navbar-links">
+            <a href="#stays">Stays</a>
+            <a href="#experiences">Experiences</a>
+        </div>
+    </div>
+
+    <div class="search-bar">
+        <div class="search-section">
+            <input type="text" placeholder="Where">
+        </div>
+        <div class="search-section">
+            <input type="text" placeholder="Check in">
+        </div>
+        <div class="search-section">
+            <input type="text" placeholder="Check out">
+        </div>
+        <div class="search-section">
+            <input type="text" placeholder="Who">
+        </div>
+        <button class="search-button">Search</button>
+    </div>
+
+    <div class="grid-container">
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h1i1.png" alt="House Image 1">
+                    <img src="h1i2.png" alt="House Image 2">
+                    <img src="h1i3.png" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Nature Surrounded House</h3>
+                <p>$500/night - 3 beds - 2 baths</p>
+            </div>
+        </div>
+
+        <div class="listing">
+            <div class="image-container">
+                <div class="images">
+                    <img src="h2i1.png" alt="House Image 1">
+                    <img src="h2i2.png" alt="House Image 2">
+                    <img src="h2i3.jpg" alt="House Image 3">
+                </div>
+                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+            </div>
+            <div class="details">
+                <h3>Cozy Apartment</h3>
+                <p>$300/night - 2 beds - 1 bath</p>
+            </div>
+        </div>
+
+
+        <!-- Add more listings as needed -->
+
+    </div>
+
+    <script>
+        function moveSlide(button, n) {
+            const slides = button.parentElement.querySelector('.images');
+            const totalSlides = slides.children.length;
+            let currentSlide = parseInt(slides.getAttribute('data-current-slide')) || 0;
+            currentSlide = (currentSlide + n + totalSlides) % totalSlides;
+            const transformValue = -currentSlide * 100;
+            slides.style.transform = `translateX(${transformValue}%)`;
+            slides.setAttribute('data-current-slide', currentSlide);
+        }
+    </script>
+</body>
+</html>
